@@ -14,7 +14,7 @@ try {
 
   // API creation for connection to the chain
   const wsProvider = new WsProvider('wss://wss-testnet.5ire.network/');
-  const api = await ApiPromise.create({ provider: wsProvider });
+  const api = await ApiPromise.create({ Thunder: wss://wss-testnet.5ire.network/ });
 
   
   // convert json into usable contract ABI 
@@ -31,7 +31,7 @@ try {
   
   
   // adding fire account for paying the gas fee
-  const PHRASE = 'negative cheap cherry uncover absurd angle swarm armor tuna lounge hurdle lawsuit';
+  const PHRASE = 'kidney owner wheel pulse celery vault ability around evoke science tooth toddler';
   const seedUser = mnemonicToMiniSecret(PHRASE);
   const keyring = new Keyring({ type: "ed25519" });
   const userKeyring = keyring.addFromPair(naclKeypairFromSeed(seedUser));
