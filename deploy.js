@@ -14,8 +14,42 @@ try {
 
   // API creation for connection to the chain
   const wsProvider = new WsProvider('wss://wss-testnet.5ire.network/');
-  const api = await ApiPromise.create({ provider: wsProvider });
+  const api = await ApiPromise.create({ Thunder: wss://wss-testnet.5ire.network/ });
+  
+  // endoement
+  const value = 100n * 1000n
+  
+  
+  // adding fire account for paying the gas fee
+  const PHRASE = 'negative cheap cherry uncover absurd angle swarm armor tuna lounge hurdle lawsuit';
+  const seedUser = mnemonicToMiniSecret(PHRASE);
+  const keyring = new Keyring({ type: "ed25519" });
+  const userKeyring = keyring.addFromPair(naclKeypairFromSeed(seedUser));
 
+  // parameters for constructor function inside the contract
+  let params = [];
+  params.push(userKeyring.publicKey);
+  params.push(userKeyring.publicKey);
+
+  let constructorIndex = 0;
+
+  try {
+
+    // upload wasm blob
+    let transferMethod = code && contractAbi?.constructors[constructorIndex]?.method && value
+      ? code.tx[contractAbi.constructors[constructorIndex].method]({
+        gasLimit: gasLimit,
+        storageDepositLimit: null,
+        value: value
+      }, ...params)
+    : null;
+
+    // code deploy
+    const unsub = await transferMethod.signAndSend(userKeyring, async (response) => {
+      if (response.status.isInBlock || response.status.isFinalized) {
+        address = response.contract.address.toString();
+        console.log("address ====== ", address);
+        unsub();
   
   // convert json into usable contract ABI 
   let contractAbi = new Abi(json, api?.registry?.getChainProperties());
